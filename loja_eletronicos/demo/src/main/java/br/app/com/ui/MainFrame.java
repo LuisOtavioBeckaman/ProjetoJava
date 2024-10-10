@@ -3,51 +3,62 @@ package br.app.com.ui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe principal que representa a janela principal da aplicação.
+ */
 public class MainFrame extends JFrame {
     private JTabbedPane tabbedPane;
 
     public MainFrame() {
-        setTitle("Loja de Eletrônicos");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setTitle("Sistema de Gestão"); // Título da janela
+        setSize(800, 600); // Tamanho da janela
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Operação de fechamento
+        setLocationRelativeTo(null); // Centraliza a janela na tela
 
-        // Criar o JTabbedPane
-        tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane(); // Cria o JTabbedPane para abas
 
-        // Painéis de listagem
+        // Criação dos painéis existentes (Clientes, Produtos, Vendas, Fornecedores)
         ClientListPanel clientListPanel = new ClientListPanel();
+        ClientRegistrationPanel clientRegistrationPanel = new ClientRegistrationPanel(clientListPanel);
+
+        ProdutoListPanel produtoListPanel = new ProdutoListPanel();
+        ProdutoRegistrationPanel produtoRegistrationPanel = new ProdutoRegistrationPanel();
+
         SupplierListPanel supplierListPanel = new SupplierListPanel();
-        ProductListPanel productListPanel = new ProductListPanel(); // Painel de listagem de produtos
-        CaixaPanel caixaPanel = new CaixaPanel(); // Adicionando o painel de caixa
-        VendasPanel vendasPanel = new VendasPanel(); // Adicionando o painel de vendas
+        SupplierRegistrationPanel supplierRegistrationPanel = new SupplierRegistrationPanel(supplierListPanel);
 
-        // Adicionar as guias para clientes e fornecedores
-        tabbedPane.addTab("Cadastro de Clientes", new ClientRegistrationPanel(clientListPanel)); // Cadastro de clientes
-        tabbedPane.addTab("Listagem de Clientes", clientListPanel); // Listagem de clientes
-        tabbedPane.addTab("Cadastro de Fornecedores", new SupplierRegistrationPanel(supplierListPanel)); // Cadastro de fornecedores
-        tabbedPane.addTab("Listagem de Fornecedores", supplierListPanel); // Listagem de fornecedores
+        VendasPanel vendasPanel = new VendasPanel();
 
-        // Adicionar as guias para produtos
-        tabbedPane.addTab("Cadastro de Produtos", new ProductRegistrationPanel(productListPanel)); // Cadastro de produtos
-        tabbedPane.addTab("Listagem de Produtos", productListPanel); // Listagem de produtos
+        // Adiciona os painéis ao JTabbedPane
+        tabbedPane.addTab("Clientes", clientRegistrationPanel); // Aba de Cadastro de Clientes
+        tabbedPane.addTab("Listar Clientes", clientListPanel); // Aba de Listagem de Clientes
 
-        // Adicionar a guia para o painel de caixa
-        tabbedPane.addTab("Caixa", caixaPanel); // Adiciona a aba do caixa
+        tabbedPane.addTab("Produtos", produtoRegistrationPanel); // Aba de Cadastro de Produtos
+        tabbedPane.addTab("Listar Produtos", produtoListPanel); // Aba de Listagem de Produtos
 
-        // Adicionar a guia para o painel de vendas
-        tabbedPane.addTab("Vendas", vendasPanel); // Adiciona a aba de vendas
+        tabbedPane.addTab("Fornecedores", supplierRegistrationPanel); // Aba de Cadastro de Fornecedores
+        tabbedPane.addTab("Listar Fornecedores", supplierListPanel); // Aba de Listagem de Fornecedores
 
-        // Adicionar o JTabbedPane ao frame
-        add(tabbedPane, BorderLayout.CENTER);
+        tabbedPane.addTab("Vendas", vendasPanel); // Aba de Vendas
 
-        // Define o tamanho da janela
-        setSize(1360, 768); // Define a resolução desejada
-        setVisible(true); // Exibe a janela
+        // Integração da nova aba de Serviços
+        ServicoListPanel servicoListPanel = new ServicoListPanel(); // Cria o painel de listagem de serviços
+        ServicoRegistrationPanel servicoRegistrationPanel = new ServicoRegistrationPanel(servicoListPanel); // Cria o painel de cadastro de serviços
+        tabbedPane.addTab("Serviços", servicoRegistrationPanel); // Aba de Cadastro de Serviços
+        tabbedPane.addTab("Listar Serviços", servicoListPanel); // Aba de Listagem de Serviços
+
+        add(tabbedPane, BorderLayout.CENTER); // Adiciona o JTabbedPane à janela principal
     }
 
-    private JPanel createOtherFeaturesPanel() {
-        JPanel panel = new JPanel();
-        panel.add(new JLabel("Funcionalidade em desenvolvimento!"));
-        return panel;
+    /**
+     * Método principal para iniciar a aplicação.
+     * @param args Argumentos da linha de comando.
+     */
+    public static void main(String[] args) {
+        // Garante que a interface gráfica seja criada na thread de despacho de eventos do Swing
+        SwingUtilities.invokeLater(() -> {
+            MainFrame frame = new MainFrame(); // Cria a instância do frame
+            frame.setVisible(true); // Torna o frame visível
+        });
     }
 }

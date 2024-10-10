@@ -15,8 +15,6 @@ public class ProductListPanel extends JPanel {
         this.produtoService = new ProdutoService(); // Inicializa o serviço de produtos
         setLayout(new BorderLayout());
 
-        // Cria e configura a tabela
-        String[] columnNames = {"ID", "Nome", "Quantidade", "Preço"};
         atualizarTabela(); // Inicializa a tabela com os produtos
 
         // Adiciona um botão para atualizar a lista

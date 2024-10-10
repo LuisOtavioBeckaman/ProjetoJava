@@ -70,12 +70,12 @@ public class ClienteController {
     }
 
     // Método para deletar um cliente
-    public boolean deletarCliente(int id) {
+    public boolean deletarCliente(int i) {
         // Chama o método de deleção no serviço e armazena o resultado em uma variável de sucesso
-        boolean sucesso = clienteService.deletarCliente(id);
+        boolean sucesso = clienteService.deletarCliente(i);
         // Verifica se a deleção foi bem-sucedida e exibe uma mensagem apropriada
         if (sucesso) {
-            System.out.println("Cliente deletado com sucesso: ID " + id);
+            System.out.println("Cliente deletado com sucesso: ID " + i);
         } else {
             System.out.println("Erro ao deletar cliente: operação falhou.");
         }

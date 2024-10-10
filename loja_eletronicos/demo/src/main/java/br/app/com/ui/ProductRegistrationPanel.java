@@ -9,10 +9,7 @@ import java.awt.*;
 public class ProductRegistrationPanel extends JPanel {
     private JTextField txtNome, txtQuantidade, txtPreco;
     private ProdutoController produtoController;
-    private ProductListPanel productListPanel; // Painel de listagem de produtos para atualizar
-
     public ProductRegistrationPanel(ProductListPanel productListPanel) {
-        this.productListPanel = productListPanel; // Recebe o painel de listagem
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
